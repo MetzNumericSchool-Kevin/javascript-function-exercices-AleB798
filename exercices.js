@@ -84,8 +84,38 @@ function createPotion (id, prix=10, stock=1) {
     }
 }
 
-console.log(createPotion("potion_invisibilite", 15, 1));
-console.log(createPotion("potion_bouleFeu", 150));
-console.log(createPotion(10, 2));
+// console.log(createPotion("potion_invisibilite", 15, 1));
+// console.log(createPotion("potion_bouleFeu", 150));
 
+// ===== Ajout de nouvelles potions dans l'inventaire =====
 
+function addPotion (inventaire, createPotionFn, id, prix, stock) {
+
+    // on Crée la nouvelle potion
+    const newPotion = createPotionFn(id, prix, stock)
+
+    //on vérifie si la potion existe déjà en parcourant la tableau avec la fonction native FIND
+    let existingPotion = inventaire.find(elt => elt.id === newPotion.id);
+
+    //si elle existe on ajuste le prix et le stock avec les nouvelles valeurs
+    if (existingPotion) {
+        existingPotion.prix = newPotion.prix;
+        existingPotion.stock += newPotion.stock
+
+      } else { // sinon on ajoute la nouvelle potion dans l'inventaire
+        inventaire.push(newPotion)
+      }
+    
+    //on utilise la fonction native SORT pour pouvoir trier le tableau : du + cher au - cher.
+    inventaire.sort(function (a, b) {
+      return b.prix - a.prix;
+    });
+}; 
+
+addPotion(inventaire, createPotion, "potion_arrettemps", 250, 3);
+addPotion(inventaire, createPotion, "potion_grandir")
+addPotion(inventaire, createPotion, "potion_soin", 20, 16)
+addPotion(inventaire, createPotion, "potion_soin", 40, 16)
+addPotion(inventaire, createPotion, "potion_immortalite", 3000, 1)
+
+console.log(inventaire)
