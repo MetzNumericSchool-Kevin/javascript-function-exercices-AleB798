@@ -87,6 +87,7 @@ function createPotion (id, prix=10, stock=1) {
 // console.log(createPotion("potion_invisibilite", 15, 1));
 // console.log(createPotion("potion_bouleFeu", 150));
 
+
 // ===== Ajout de nouvelles potions dans l'inventaire =====
 
 function addPotion (inventaire, createPotionFn, id, prix, stock) {
@@ -117,5 +118,23 @@ addPotion(inventaire, createPotion, "potion_grandir")
 addPotion(inventaire, createPotion, "potion_soin", 20, 16)
 addPotion(inventaire, createPotion, "potion_soin", 40, 16)
 addPotion(inventaire, createPotion, "potion_immortalite", 3000, 1)
+addPotion(inventaire, createPotion, "potion_rapidite", 30, 0)
+
+// console.log(inventaire)
+
+
+// ===== Cherche moi les potions qui... =====
+
+function potionInStock (inventaire) {
+  return inventaire.filter(elt=>elt.stock > 0)
+}
+
+function potionNotInStock (inventaire) {
+  return inventaire.filter(elt=>elt.stock === 0)
+}
 
 console.log(inventaire)
+console.log(potionInStock(inventaire))
+console.log(potionNotInStock(inventaire))
+console.log(inventaire)
+
